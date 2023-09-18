@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Task Manager</title>
+    <style>
+        ul.navbar {
+            list-style-type: none;
+            margin: 0;
+            padding: 0;
+            background-color: #333;
+            overflow: hidden;
+        }
+
+        ul.navbar li {
+            float: left;
+        }
+
+        ul.navbar li a {
+            display: block;
+            color: white;
+            text-align: center;
+            padding: 14px 16px;
+            text-decoration: none;
+        }
+
+        ul.navbar li a:hover {
+            background-color: #555;
+        }
+
+        /* Style for the table */
+        table {
+            border-collapse: collapse;
+            width: 80%;
+            margin: 20px auto;
+        }
+
+        th, td {
+            border: 1px solid #ccc;
+            padding: 8px;
+            text-align: left;
+        }
+
+        th {
+            background-color: #333;
+            color: white;
+        }
+    </style>
+</head>
+<body>
+    <ul class="navbar">
+        <li><a href="/">Home</a></li>
+        <li><a href="#tasks">Tasks</a></li>
+    </ul>
+
+    <div class="container">
+        <div class="row">
+            <table>
+                <tr>
+                    <th>Tasks</th>
+                    <th>Priority</th>
+                </tr>
+                {% for i in obj %}
+                <tr>
+                    <td>{{ i.task }}</td>
+                    <td>{{ i.prio }}</td>
+                </tr>
+                {% endfor %}
+            </table>
+        </div>
+    </div>
+</body>
+</html>

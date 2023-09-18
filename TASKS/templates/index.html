@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        body {
+            background-color: #f8f9fa;
+        }
+
+        .container {
+            padding: 20px;
+            background-color: #fff;
+            border: 1px solid #d1d1d1;
+            border-radius: 10px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
+        }
+
+        .main-heading {
+            text-align: center;
+            margin-top: 20px;
+            margin-bottom: 40px;
+            font-size: 36px; 
+            font-weight: bold;
+            color: #007bff; 
+        }
+
+        .custom-form {
+            padding: 20px;
+            background-color: #f5f5f5;
+            border: 1px solid #d1d1d1;
+            border-radius: 5px;
+            transition: background-color 0.3s ease-in-out;
+        }
+
+        .custom-form:hover {
+            background-color: #e9e9e9;
+        }
+
+        .form-group label {
+            font-weight: bold;
+        }
+
+        .task-container {
+            background-color: #ffffff;
+            border: 1px solid #d1d1d1;
+            border-radius: 5px;
+            padding: 15px;
+            margin-bottom: 10px;
+            box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+        }
+
+        .task-container:hover {
+            transform: scale(1.02);
+            box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.2);
+        }
+
+        .task-container h3 {
+            font-size: 20px;
+            margin-bottom: 10px;
+            color: #333; 
+        }
+
+        .task-container p {
+            font-weight: bold;
+            color: #555;
+        }
+
+        .delete-button {
+            background-color: #dc3545; /* Red color */
+            border: none;
+            color: white;
+            padding: 5px 10px;
+            border-radius: 5px;
+            margin-right: 10px;
+            cursor: pointer;
+            text-decoration: none;
+            transition: background-color 0.3s ease-in-out;
+        }
+
+        .delete-button:hover {
+            background-color: #c82333; /* Darker red on hover */
+        }
+
+        .update-button,
+        .btn-primary {
+            background-color: #4169E1; /* Darker powder blue color */
+            border: none;
+            color: white;
+            padding: 5px 10px;
+            border-radius: 5px;
+            cursor: pointer;
+            text-decoration: none;
+            transition: background-color 0.3s ease-in-out;
+        }
+
+        .update-button:hover,
+        .btn-primary:hover {
+            background-color: #0033A0; /* Even darker blue on hover */
+        }
+    </style>
+</head>
+<body>
+    <div class="container mt-5">
+        <h1 class="main-heading">To Do List</h1>
+
+        <div class="row">
+            <div class="col-md-6">
+                <form method="POST" action="{% url 'home' %}">
+                    {% csrf_token %}
+                    <div class="form-group">
+                        <label for="task">Task:</label>
+                        <input type="text" class="form-control" id="task" name="task" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="prio">Priority:</label>
+                        <input type="text" class="form-control" id="prio" name="prio" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="date">Date:</label>
+                        <input type="date" class="form-control" id="date" name="date">
+                    </div>
+                   
+                    <button type="submit" class="btn btn-primary">Add Task</button>
+                </form>
+            </div>
+
+            <div class="col-md-6">
+                <h2>Tasks</h2>
+                {% for i in obj %}
+                    <div class="task-container">
+                        <h3>{{ i.task }}</h3>
+                        <p>Priority: {{ i.prio }}</p>
+                        <p>Due date: {{ i.date }}</p>
+                        <a href="{% url 'delete' i.id %}" class="btn btn-danger delete-button">Delete</a>
+                        <a href="{% url 'update' i.id %}" class="btn btn-primary update-button">Update</a>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@1.16.0/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>
